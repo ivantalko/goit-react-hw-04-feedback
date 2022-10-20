@@ -39,6 +39,7 @@ export class App extends Component {
         </FeedbackSections>
         <FeedbackSections title="Statistics">
           <FeedbackStatistics
+            message="There is no feedback"
             good={this.state.good}
             neutral={this.state.neutral}
             bad={this.state.neutral}

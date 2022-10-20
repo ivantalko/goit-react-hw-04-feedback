@@ -1,13 +1,14 @@
 import css from '../Feedback/Feedback.module.css';
 import PropTypes from 'prop-types';
 export const FeedbackStatistics = ({
+  message,
   good,
   neutral,
   bad,
   total,
   positivePercentage,
 }) => {
-  return (
+  return total ? (
     <>
       <ul className={css.allres}>
         <li className={css.results}>Good:{good}</li>
@@ -20,6 +21,8 @@ export const FeedbackStatistics = ({
         </li>
       </ul>
     </>
+  ) : (
+    <h2>{message}</h2>
   );
 };
 FeedbackStatistics.propTypes = {
