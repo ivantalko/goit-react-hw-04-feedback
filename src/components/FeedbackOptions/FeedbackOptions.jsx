@@ -1,17 +1,17 @@
-import css from '../Feedback/Feedback.module.css';
+import css from '../FeedbackOptions/FeedbackOptions.module.css';
 import PropTypes from 'prop-types';
 export function FeedbackOptions({ options, onLeaveFeedback }) {
   return (
     <>
-      <div className={css.buttons}>
-        {options.map(pop => (
+      <div className={css.containerButtons}>
+        {options.map(item => (
           <button
-            key={pop.name}
-            name={pop.name}
+            key={item.name}
+            name={item.name}
             type="button"
             onClick={event => onLeaveFeedback(event)}
           >
-            {pop.title}
+            {item.title}
           </button>
         ))}
       </div>

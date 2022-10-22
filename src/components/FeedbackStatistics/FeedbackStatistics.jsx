@@ -1,28 +1,24 @@
-import css from '../Feedback/Feedback.module.css';
 import PropTypes from 'prop-types';
 export const FeedbackStatistics = ({
-  message,
   good,
   neutral,
   bad,
   total,
   positivePercentage,
 }) => {
-  return total ? (
+  return (
     <>
-      <ul className={css.allres}>
-        <li className={css.results}>Good:{good}</li>
-        <li className={css.results}>Neutral:{neutral}</li>
-        <li className={css.results}>Bad:{bad}</li>
-        <li className={css.results}>Total :{total}</li>
-        <li className={css.results}>
+      <ul>
+        <li>Good:{good}</li>
+        <li>Neutral:{neutral}</li>
+        <li>Bad:{bad}</li>
+        <li>Total :{total}</li>
+        <li>
           Positive feedback:
           {positivePercentage || 0}%
         </li>
       </ul>
     </>
-  ) : (
-    <h2>{message}</h2>
   );
 };
 FeedbackStatistics.propTypes = {
