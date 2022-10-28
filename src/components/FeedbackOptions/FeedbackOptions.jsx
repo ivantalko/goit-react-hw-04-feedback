@@ -6,12 +6,12 @@ export function FeedbackOptions({ options, onLeaveFeedback }) {
       <div className={css.containerButtons}>
         {options.map(item => (
           <button
-            key={item.name}
-            name={item.name}
+            key={item}
+            name={item}
             type="button"
-            onClick={event => onLeaveFeedback(event)}
+            onClick={onLeaveFeedback}
           >
-            {item.title}
+            {item}
           </button>
         ))}
       </div>
@@ -19,9 +19,6 @@ export function FeedbackOptions({ options, onLeaveFeedback }) {
   );
 }
 FeedbackOptions.propTypes = {
-  options: PropTypes.arrayOf(
-    PropTypes.shape({ name: PropTypes.string, title: PropTypes.string })
-      .isRequired
-  ),
+  options: PropTypes.arrayOf(PropTypes.string.isRequired),
   onLeaveFeedback: PropTypes.func.isRequired,
 };

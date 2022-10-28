@@ -1,57 +1,58 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Notification } from './MessageNotif/MessageNotif';
-import { Component } from 'react';
 import { FeedbackStatistics } from './FeedbackStatistics/FeedbackStatistics';
 import { FeedbackOptions } from './FeedbackOptions/FeedbackOptions';
 import { FeedbackSections } from './FeedbackSection/FeedbackSection';
-export const options = [
-  { title: 'Good', name: 'good' },
-  { title: 'Neutral', name: 'neutral' },
-  { title: 'Bad', name: 'bad' },
-];
-export class App extends Component {
-  state = {
-    good: 0,
-    neutral: 0,
-    bad: 0,
+
+export const App = () => {
+  const [good, setGood] = useState(0);
+  const [neutral, setNeutral] = useState(0);
+  const [bad, setBad] = useState(0);
+
+  const heandelChangeountTotalFeedback = event => {
+    switch (event.target.name) {
+      case 'good':
+        setGood(prevstate => prevstate + 1);
+        break;
+      case 'neutral':
+        setNeutral(prevstate => prevstate + 1);
+        break;
+      case 'bad':
+        setBad(prevstate => prevstate + 1);
+        break;
+      default:
+        break;
+    }
   };
 
-  heandelChange = event => {
-    const { name } = event.target;
-    this.setState(state => {
-      return { [name]: state[name] + 1 };
-    });
+  const countTotalFeedback = () => {
+    return good + neutral + bad;
+  };
+  const countPositiveFeedbackPercentage = () => {
+    return Math.ceil((good / countTotalFeedback()) * 100);
   };
 
-  countTotalFeedback = () => {
-    return this.state.good + this.state.neutral + this.state.bad;
-  };
-  countPositiveFeedbackPercentage = () => {
-    return Math.ceil((this.state.good / this.countTotalFeedback()) * 100);
-  };
-  render() {
-    return (
-      <>
-        <FeedbackSections title="Please leave feedback">
-          <FeedbackOptions
-            options={options}
-            onLeaveFeedback={this.heandelChange}
+  return (
+    <>
+      <FeedbackSections title="Please leave feedback">
+        <FeedbackOptions
+          options={['good', 'neutral', 'bad']}
+          onLeaveFeedback={heandelChangeountTotalFeedback}
+        />
+      </FeedbackSections>
+      <FeedbackSections title="Statistics">
+        {countTotalFeedback() ? (
+          <FeedbackStatistics
+            good={good}
+            neutral={neutral}
+            bad={bad}
+            total={countTotalFeedback()}
+            positivePercentage={countPositiveFeedbackPercentage()}
           />
-        </FeedbackSections>
-        <FeedbackSections title="Statistics">
-          {this.countTotalFeedback() ? (
-            <FeedbackStatistics
-              good={this.state.good}
-              neutral={this.state.neutral}
-              bad={this.state.neutral}
-              total={this.countTotalFeedback()}
-              positivePercentage={this.countPositiveFeedbackPercentage()}
-            />
-          ) : (
-            <Notification message="There is no feedback" />
-          )}
-        </FeedbackSections>
-      </>
-    );
-  }
-}
+        ) : (
+          <Notification message="There is no feedback" />
+        )}
+      </FeedbackSections>
+    </>
+  );
+};
